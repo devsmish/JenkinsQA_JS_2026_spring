@@ -45,4 +45,16 @@ test.describe("US_10.004 | Manage Jenkins > Tools", () => {
         await expect(app.toolsPage.newJdkNameInput(jdkName)).toHaveValue(jdkName);
     });
 
+    test("TC_10.004.08 | Verify Git installation can be added", async ({ app }: { app: App }) => {
+        await app.toolsPage.clickAddGit();
+        await app.toolsPage.selectGitFromDropdown();
+
+        const gitName = toolsPageData.generateGitName();
+        
+        await app.toolsPage.fillGitName(gitName);
+        await app.toolsPage.clickSave();
+        await app.manageJenkinsPage.clickTools();
+        
+        await expect(app.toolsPage.newGitNameInput(gitName)).toBeVisible();
+    });
 });

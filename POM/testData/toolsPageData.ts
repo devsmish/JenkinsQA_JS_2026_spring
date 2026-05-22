@@ -9,5 +9,6 @@ export const toolsPageData = {
         "Ant installations",
         "Maven installations"
     ],
-    generateJdkName: () => `jdk-${faker.system.semver()}-${faker.lorem.word()}`
+    generateJdkName: () => `jdk-${faker.system.semver()}-${faker.lorem.word()}`,
+    generateGitName: () => `git-${faker.system.semver()}-${faker.lorem.word()}`
 };

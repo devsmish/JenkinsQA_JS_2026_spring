@@ -12,9 +12,13 @@ export class ToolsPage extends BasePage {
     jdkInstallationsButton = () => this.page.getByRole('button', { name: 'JDK installations' });
     saveButton = () => this.page.locator("button[name='Submit']");
     newJdkChunk = () => this.page.locator('div.repeated-chunk').first();
-    nameInput = () => this.newJdkChunk().locator('input[name="_.name"]');
+    jdkNameInput = () => this.newJdkChunk().locator('input[name="_.name"]');
     newJdkNameInput = (name: string) => this.page.locator(`input[name="_.name"][value="${name}"]`);
-
+    addGitButton = () => this.page.getByRole('button', { name: 'Add Git' }).first();
+    gitDropdownItem = () => this.page.getByText('Git', { exact: true });
+    gitNameInput = () => this.page.locator("//input[@checkurl='/manage/descriptorByName/hudson.plugins.git.GitTool/checkName']").first();
+    newGitNameInput = (name: string) => this.page.locator(`//input[@checkurl='/manage/descriptorByName/hudson.plugins.git.GitTool/checkName'][@value="${name}"]`);
+    
     async getCurrentUrl() {
         return this.page.url();
     }
@@ -34,7 +38,7 @@ export class ToolsPage extends BasePage {
     }
 
     async fillJdkName(name: string) {
-        await this.nameInput().fill(name);
+        await this.jdkNameInput().fill(name);
     }
 
     async clickAddJdkWithFallback() {
@@ -52,6 +56,21 @@ export class ToolsPage extends BasePage {
 
     async clickJdkInstallationsButton() {
         await this.jdkInstallationsButton().click();
+        return this;
+    }
+
+    async clickAddGit() {
+        await this.addGitButton().click();
+        return this;
+    }
+
+    async selectGitFromDropdown() {
+        await this.gitDropdownItem().click();
+        return this;
+    }
+
+    async fillGitName(name: string) {
+        await this.gitNameInput().fill(name);
         return this;
     }
 }
