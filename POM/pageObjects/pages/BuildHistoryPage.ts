@@ -1,4 +1,5 @@
 import { BasePage } from "./@components";
+import { App } from "@/POM/fixtures/baseFixtures";
 
 export class BuildHistoryPage extends BasePage {
     successfulBuildEntry = (projectName: string) => this.page.locator("tr", { hasText: projectName });
@@ -19,5 +20,10 @@ export class BuildHistoryPage extends BasePage {
 
     async getFirstBuildNumber() {
         return this.firstBuildNumberLink().textContent();
+    }
+
+    async openBuildHistory(app: App) {
+        await app.header.clickHome();
+        await app.homePage.clickBuildHistoryLink();
     }
 }

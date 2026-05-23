@@ -12,14 +12,9 @@ test.describe("US_09 | Build history", () => {
         await app.configureFreestylePage.clickSaveButton();
     });
 
-    async function openBuildHistory(app: App) {
-        await app.header.clickHome();
-        await app.homePage.clickBuildHistoryLink();
-    }
-
     test("RF_09.001.01 | Item displays on Build History page after building", async ({ app }) => {
         await app.statusFreestyleProjectPage.clickBuildNowLink();
-        await openBuildHistory(app);
+        await app.buildHistoryPage.openBuildHistory(app);
 
         await expect(app.buildHistoryPage.newItemName()).toContainText(newItemPageData.itemName);
     });
@@ -29,7 +24,7 @@ test.describe("US_09 | Build history", () => {
 
         await app.statusFreestyleProjectPage.createBuilds(expectedBuildNumbers.length);
 
-        await openBuildHistory(app);
+        await app.buildHistoryPage.openBuildHistory(app);
 
         await expect(app.buildHistoryPage.buildValues()).toHaveCount(expectedBuildNumbers.length);
 
@@ -40,7 +35,7 @@ test.describe("US_09 | Build history", () => {
         await app.statusFreestyleProjectPage.clickBuildNowLink();
         await app.statusFreestyleProjectPage.buildNumber("#1").waitFor();
 
-        await openBuildHistory(app);
+        await app.buildHistoryPage.openBuildHistory(app);
 
         await expect(app.buildHistoryPage.successfulBuildStatusIcon(projectName)).toBeVisible();
     });
@@ -48,7 +43,7 @@ test.describe("US_09 | Build history", () => {
     test("RF_09.001.06 | Verify build number links to Build Summary page", async ({ app }) => {
         await app.statusFreestyleProjectPage.createBuilds(1);
 
-        await openBuildHistory(app);
+        await app.buildHistoryPage.openBuildHistory(app);
 
         await expect(app.buildHistoryPage.firstBuildNumberLink()).toBeVisible();
 
@@ -61,7 +56,7 @@ test.describe("US_09 | Build history", () => {
     test("RF_09.002.02 | Verify sorting toggle changes build order", async ({ app }) => {
         await app.statusFreestyleProjectPage.createBuilds(4);
 
-        await openBuildHistory(app);
+        await app.buildHistoryPage.openBuildHistory(app);
 
         await expect(app.buildHistoryPage.buildValues().first()).toBeVisible();
 
