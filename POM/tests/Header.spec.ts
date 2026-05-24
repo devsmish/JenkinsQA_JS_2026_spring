@@ -1,9 +1,7 @@
 import { test, expect, App } from '@/POM/fixtures/baseFixtures';
 import { newItemPageData } from "@/POM/testData/newItemPageData";
 
-
-
-test.describe("US_13.001 | Header > Navigate to Dashboard", () => {
+test.describe("Header Tests", () => {
     test("RF_13.001.01 | Verify header is visible from tools page", async ({ app }: { app: App }) => {
         await app.homePage.header.clickManageJenkins();
         await app.manageJenkinsPage.clickTools();
@@ -21,10 +19,8 @@ test.describe("US_13.001 | Header > Navigate to Dashboard", () => {
 
         await expect(app.homePage.itemName()).toHaveText(newItemPageData.itemName);
     });
-});
 
-test.describe("US_13.002 | Header > Global Search", () => {
-    test("RF_13.002.01 | Verify search results appear", async ({ app }: { app: App }) => {
+       test("RF_13.002.01 | Verify search results appear", async ({ app }: { app: App }) => {
         const itemName = newItemPageData.itemName;
 
         await app.homePage.clickNewItemLink();
@@ -39,14 +35,10 @@ test.describe("US_13.002 | Header > Global Search", () => {
         const results = await app.homePage.header.getSearchDropdownResults();
         await expect(results).toContainText(itemName);
     });
-});
 
-test.describe("US_13.004 | Header > Access to User Profile", () => {
-    test("TC__13.004.01 | Verify profile icon opens Profile Page POM", async ({ app } : { app: App}) => {
+     test("TC_13.004.01 | Verify profile icon opens Profile Page POM", async ({ app } : { app: App}) => {
         await app.homePage.clickProfileIcon();
         
         expect(app.userPofilePage.jenkinsUserId()).toBeVisible();
-    
-
     })
 });
