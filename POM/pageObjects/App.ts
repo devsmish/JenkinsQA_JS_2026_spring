@@ -13,8 +13,10 @@ import { ConfigurePipelinePage } from "./pages/ConfigurePipelinePage";
 import { ConfigureOrganizationFolderPage } from "@/POM/pageObjects/pages/ConfigureOrganizationFolderPage";
 import { ConfigureMultibranchPipelinePage } from "./pages/ConfigureMulribranchPipelinePage";
 import { StatusFreestyleProjectPage } from "@/POM/pageObjects/pages/StatusFreestyleProjectPage";
+import { StatusMultibranchPipelinePage } from "@/POM/pageObjects/pages/StatusMultibranchPipelinePage";
 import { StatusFolderPage } from "./pages/StatusFolderPage";
 import { UserProfilePage } from "./pages/UserProfilePage";
+import { ConfirmRenameMultibranchPipelinePage } from "@/POM/pageObjects/pages/ConfirmRenameMultibranchPipeline";
 
 export class App {
     private _homePage: HomePage | null = null;
@@ -33,8 +35,10 @@ export class App {
         null;
     private _statusFreestyleProjectPage: StatusFreestyleProjectPage | null =
         null;
+    private _statusMultibranchPipelinePage: StatusMultibranchPipelinePage | null = null;
     private _statusFolderPage: StatusFolderPage | null = null;
     private _userProfilePage: UserProfilePage | null = null;
+    private _confirmRenameMultibranchPipelinePage: ConfirmRenameMultibranchPipelinePage | null = null;
 
     constructor(private readonly page: Page) {}
 
@@ -97,6 +101,16 @@ export class App {
     get statusFreestyleProjectPage() {
         return (this._statusFreestyleProjectPage ??=
             new StatusFreestyleProjectPage(this.page));
+    }
+
+    get statusMultibranchPipelinePage() {
+        return this._statusMultibranchPipelinePage ??= 
+            new StatusMultibranchPipelinePage(this.page);
+    }
+
+    get confirmRenameMultibranchPipelinePage() {
+        return this._confirmRenameMultibranchPipelinePage ??= 
+            new ConfirmRenameMultibranchPipelinePage(this.page);
     }
 
     async checkAccessibility(
