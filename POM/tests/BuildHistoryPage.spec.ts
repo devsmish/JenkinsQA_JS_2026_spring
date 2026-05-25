@@ -1,5 +1,6 @@
 import { test, expect, App } from "@/POM/fixtures/baseFixtures";
 import { newItemPageData } from "@/POM/testData/newItemPageData";
+import { buildHistoryTable } from "../testData/buildHistoryPage";
 
 test.describe("US_09 | Build history", () => {
     let projectName: string;
@@ -76,5 +77,28 @@ test.describe("US_09 | Build history", () => {
 
         expect(firstSortOrder).not.toEqual(initialOrder);
         expect(secondSortOrder).toEqual(initialOrder);
+    });
+});
+
+test.describe("US_09.004 | Build history> Handling an Empty Build History ", () => {
+    test("RF_09.004_001 | Verify empty Build History page", async ({
+        app,
+    }: {
+        app: App;
+    }) => {
+
+        await app.homePage.clickBuildHistoryLink();
+        
+        await expect(app.buildHistoryPage.sortableBuildTable()).toBeVisible();
+    
+        await expect(app.buildHistoryPage.sortableBuildTableHeader()).toContainText([
+        buildHistoryTable.columnHeaders.s,
+        buildHistoryTable.columnHeaders.build,
+        buildHistoryTable.columnHeaders.timeSince,
+        buildHistoryTable.columnHeaders.status,
+        ]);
+
+        await expect(app.buildHistoryPage.sortableBuildTableRow()).not.toBeVisible();
+
     });
 });
