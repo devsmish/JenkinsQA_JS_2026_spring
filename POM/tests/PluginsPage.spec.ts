@@ -35,5 +35,17 @@ test.describe("US_10 | Manage Jenkins > Plugins", () => {
         
     })
 
+    test("RF_10.006.02 | Verify health icon is clickable", async ({ app }: { app: App }) => {
+        await app.homePage.header.clickManageJenkins();
+        await app.manageJenkinsPage.clickPlugins();
+        await app.pluginManagerPage.clickAvailableplugins();
+
+        await app.pluginManagerPage.pluginsTableContent().first().waitFor({state: 'visible'})
+        await expect(app.pluginManagerPage.healthScoreIcons().first()).toHaveAttribute('href', /jenkins\.io/)
+
+        
+    })
+
+
 
 })

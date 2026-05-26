@@ -8,6 +8,7 @@ export class PluginManagerPage extends BasePage {
     updateButton = () => this.page.getByRole('button', { name: 'Update' });
     availablepluginsLink = () => this.page.getByRole('link', { name: 'Available plugins' })
     pluginsTableContent = () => this.page.locator('tbody tr')
+    healthScoreIcons = () => this.page.locator('a.jenkins-healthScore--badge.jenkins-healthScore--top')
 
     async clickAvailableplugins() {
         await this.availablepluginsLink().click()
