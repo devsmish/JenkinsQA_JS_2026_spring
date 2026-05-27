@@ -57,4 +57,17 @@ test.describe("US_10.004 | Manage Jenkins > Tools", () => {
         
         await expect(app.toolsPage.newGitNameInput(gitName)).toBeVisible();
     });
+
+    test("TC_10.004.09 | Verify Gradle installation can be added", async ({ app }: { app: App }) => {
+        await app.toolsPage.clickAddGradleWithFallback();
+
+        const gradleName = toolsPageData.generateGradleName();
+        
+        await app.toolsPage.fillGradleName(gradleName);
+        await app.toolsPage.clickSave();
+        await app.manageJenkinsPage.clickTools();
+        await app.toolsPage.clickGradleInstallationsButton();
+        
+        await expect(app.toolsPage.newGradleNameInput(gradleName)).toBeVisible();
+    });
 });

@@ -10,5 +10,6 @@ export const toolsPageData = {
         "Maven installations"
     ],
     generateJdkName: () => `jdk-${faker.system.semver()}-${faker.lorem.word()}`,
-    generateGitName: () => `git-${faker.system.semver()}-${faker.lorem.word()}`
+    generateGitName: () => `git-${faker.system.semver()}-${faker.lorem.word()}`,
+    generateGradleName: () => `gradle-${faker.system.semver()}-${faker.lorem.word()}`
 };

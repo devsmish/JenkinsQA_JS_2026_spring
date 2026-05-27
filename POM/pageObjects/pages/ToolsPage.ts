@@ -18,7 +18,11 @@ export class ToolsPage extends BasePage {
     gitDropdownItem = () => this.page.getByText('Git', { exact: true });
     gitNameInput = () => this.page.locator("//input[@checkurl='/manage/descriptorByName/hudson.plugins.git.GitTool/checkName']").first();
     newGitNameInput = (name: string) => this.page.locator(`//input[@checkurl='/manage/descriptorByName/hudson.plugins.git.GitTool/checkName'][@value="${name}"]`);
-    
+    gradleInstallationsButton = () => this.page.getByRole('button', { name: 'Gradle installations' });
+    addGradleButton = () => this.page.getByRole('button', { name: 'Add Gradle' }).first();
+    gradleNameInput = () => this.page.locator("//input[@checkurl='/manage/descriptorByName/hudson.plugins.gradle.GradleInstallation/checkName']").first();
+    newGradleNameInput = (name: string) => this.page.locator(`//input[@checkurl='/manage/descriptorByName/hudson.plugins.gradle.GradleInstallation/checkName'][@value="${name}"]`);
+
     async getCurrentUrl() {
         return this.page.url();
     }
@@ -73,4 +77,28 @@ export class ToolsPage extends BasePage {
         await this.gitNameInput().fill(name);
         return this;
     }
+
+    async clickGradleInstallationsButton() {
+        await this.gradleInstallationsButton().click();
+        return this;
+    }
+
+    async clickAddGradleWithFallback() {
+        const addGradle = this.addGradleButton();
+        await this.page.waitForLoadState('domcontentloaded');
+        if (await addGradle.isVisible().catch(() => false)) {
+            await addGradle.click();
+        } else {
+            await this.clickGradleInstallationsButton();
+            await expect(addGradle).toBeVisible();
+            await addGradle.click();
+        }
+        return this;
+    }
+
+    async fillGradleName(name: string) {
+        await this.gradleNameInput().fill(name);
+        return this;
+    }
+
 }
